@@ -16,6 +16,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.BottomAppBar
@@ -37,48 +38,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.visualisationexpensestracker.Presentation.FirstScreen
+import com.example.visualisationexpensestracker.Presentation.SecondScreen
+import com.example.visualisationexpensestracker.Presentation.ThirdScreen
 import com.example.visualisationexpensestracker.R
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun Header() {
-TopAppBar(title = { Text(text = "Category" )},
-    navigationIcon = {
-        IconButton(onClick = { /* Handle navigation icon click */ }) {
-            Icon(imageVector = Icons.Default.Menu, contentDescription = null)
-        }
-    })
-}
-
-
-
-
-
-@Composable
-fun ExpensesCard(){
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .padding(8.dp), shape = RoundedCornerShape(8.dp)) {
-        Text(text = stringResource(R.string.LoremIpsum))
-    }
-}
-
-@Composable
-fun FloatingExample(onClick: () -> Unit) {
-        ExtendedFloatingActionButton(modifier = Modifier
-            .padding(16.dp)
-            .size(32.dp),
-            onClick = { onClick() },
-            icon = { Icon(Icons.Filled.Add, "Floating action button")},
-            text = {Text(text = "Expense") }
-        )
-
-
-}
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PagerTest(){
+fun PagerTest() {
     val pagerState = rememberPagerState(initialPage = 1)
 
     Column(
@@ -86,9 +53,11 @@ fun PagerTest(){
             .fillMaxSize()
 
     ) {
-        HorizontalPager(pageCount = 3,
+        HorizontalPager(
+            pageCount = 3,
             state = pagerState,
-            modifier = Modifier.weight(1f)) { page ->
+            modifier = Modifier.weight(1f)
+        ) { page ->
             Log.d("Mylog", "Lambda in pager")
             when (page) {
                 0 -> FirstScreen()
@@ -98,51 +67,48 @@ fun PagerTest(){
         }
     }
 }
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FirstScreen() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Header()
-        ExpensesCard()
-        ExpensesCard()
-        ExpensesCard()
-
-        FloatingExample {
-            Log.d("MyLog", "FAB")
+fun Header() {
+    Row(){
+        IconButton(onClick = { /* Handle navigation icon click */ }) {
+            Icon(imageVector = Icons.Default.Menu, contentDescription = null)
         }
+        Text(text = "Category")
+    }
+}
+
+
+@Composable
+fun ExpensesCard() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp), shape = RoundedCornerShape(8.dp)
+    ) {
+        Text(text = stringResource(R.string.LoremIpsum))
     }
 }
 
 @Composable
-fun SecondScreen() {  // Main and Primary screen
+fun FloatingExample(onClick: () -> Unit) {
+    ExtendedFloatingActionButton(modifier = Modifier
+        .padding(16.dp)
+        .size(32.dp),
+        onClick = { onClick() },
+        icon = { Icon(Icons.Filled.Add, "Floating action button") },
+        text = { Text(text = "Expense") }
+    )
+}
 
-    Column(modifier = Modifier.fillMaxSize()) {// Column of Main Screen //
-        Header()
-        ExpensesCard()
-        ExpensesCard()
-FloatingExample {
-    Log.d("MyLog", "FAB")
-}
-    }
-}
+
+
+
+
 
 @Composable
-fun ThirdScreen() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Header()
-        ExpensesCard()
-
-        FloatingExample {
-            Log.d("MyLog", "FAB")
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
+fun ExtendedExample(onClick: () -> Unit) {
+    ExtendedFloatingActionButton(
+        onClick = { onClick() },
+        icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
+        text = { Text(text = "Extended FAB") })}
