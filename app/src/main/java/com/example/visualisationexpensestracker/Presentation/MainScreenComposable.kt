@@ -77,38 +77,3 @@ fun Header() {
         Text(text = "Category")
     }
 }
-
-
-@Composable
-fun ExpensesCard() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp), shape = RoundedCornerShape(8.dp)
-    ) {
-        Text(text = stringResource(R.string.LoremIpsum))
-    }
-}
-
-@Composable
-fun FloatingExample(onClick: () -> Unit) {
-    ExtendedFloatingActionButton(modifier = Modifier
-        .padding(16.dp)
-        .size(32.dp),
-        onClick = { onClick() },
-        icon = { Icon(Icons.Filled.Add, "Floating action button") },
-        text = { Text(text = "Expense") }
-    )
-}
-
-
-
-
-
-
-@Composable
-fun ExtendedExample(onClick: () -> Unit) {
-    ExtendedFloatingActionButton(
-        onClick = { onClick() },
-        icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
-        text = { Text(text = "Extended FAB") })}
