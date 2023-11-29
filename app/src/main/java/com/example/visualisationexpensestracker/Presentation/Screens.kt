@@ -8,20 +8,20 @@ import androidx.compose.ui.Modifier
 import com.example.visualisationexpensestracker.ui.theme.Header
 
 @Composable
-fun FirstScreen() {
+fun FirstScreen() { // Settings
     Column(modifier = Modifier.fillMaxSize()) { // Settings screen
-        Header()
+        Header(categoryName = "Settings", isMenuButton =  false, isSearchButton = false)
         ExpensesCardTypeSimple()
         ExpensesCardTypeSimple()
         ExpensesCardTypeSimple()
-        ExtendedButtonExample ({Log.d("MyLog", "ExtendedButtonExample called")}, true)
+        ExtendedButtonExample ({Log.d("MyLog", "ExtendedButtonExample called")}, false)
     }
 }
 
 @Composable
 fun SecondScreen() {  // Main and Primary screen
     Column(modifier = Modifier.fillMaxSize()) {// Column of Main Screen //
-        Header()
+        Header(categoryName = "Expenses", isMenuButton =  true, isSearchButton = true)
         ExpensesCardTypeSimple()
         ExpensesCardTypeSimple()
         ExtendedButtonExample ({Log.d("MyLog", "ExtendedButtonExample called")}, true)
@@ -29,9 +29,9 @@ fun SecondScreen() {  // Main and Primary screen
 }
 
 @Composable
-fun ThirdScreen() {
+fun ThirdScreen() {  // Statistics Screen
     Column(modifier = Modifier.fillMaxSize()) {
-
+        Header("Statistics", true, false)
         ExpensesCardTypeSimple()
         ExtendedButtonExample ({Log.d("MyLog", "ExtendedButtonExample called")}, false)
     }

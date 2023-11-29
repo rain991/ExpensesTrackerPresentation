@@ -2,56 +2,42 @@ package com.example.visualisationexpensestracker.ui.theme
 
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.visualisationexpensestracker.Presentation.FirstScreen
 import com.example.visualisationexpensestracker.Presentation.SecondScreen
 import com.example.visualisationexpensestracker.Presentation.ThirdScreen
-import com.example.visualisationexpensestracker.R
 
 @OptIn(ExperimentalFoundationApi::class)
+@Preview
 @Composable
 fun PagerTest() {
     val pagerState = rememberPagerState(initialPage = 1)
-
     Column(
         modifier = Modifier
-            .fillMaxSize()
-
+            .fillMaxSize().padding(4.dp)
     ) {
         HorizontalPager(
             pageCount = 3,
@@ -67,13 +53,51 @@ fun PagerTest() {
         }
     }
 }
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
-fun Header() {
-    Row(){
-        IconButton(onClick = { /* Handle navigation icon click */ }) {
-            Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+fun Header1(categoryName:String, isMenuButton: Boolean, isSearchButton:Boolean) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 8.dp)){
+       if(isMenuButton){
+           IconButton(onClick = { /* Handle navigation icon click */ }) {
+               Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+           }
+       }
+        Box(modifier = Modifier.fillMaxWidth().padding(8.dp)){
+            Text(text = categoryName, textAlign = TextAlign.Center, fontSize = 28.sp, fontWeight = FontWeight.Bold)
         }
-        Text(text = "Category")
+    }
+}
+@Composable
+fun Header(categoryName: String, isMenuButton: Boolean = true, isSearchButton: Boolean = true) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (isMenuButton) {
+            IconButton(onClick = { /* Обработка нажатия на кнопку меню */ }) {
+                Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+            }
+        }
+
+        Text(
+            text = categoryName,
+            style = TextStyle(
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+            ),
+            modifier = Modifier.weight(1f),
+            textAlign = TextAlign.Center
+        )
+
+        if (isSearchButton) {
+            IconButton(onClick = { /* Обработка нажатия на кнопку поиска */ }) {
+                Icon(imageVector = Icons.Default.Search, contentDescription = null)
+            }
+        }
     }
 }
