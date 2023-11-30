@@ -14,7 +14,7 @@ fun FirstScreen() { // Settings
         ExpensesCardTypeSimple()
         ExpensesCardTypeSimple()
         ExpensesCardTypeSimple()
-        ExtendedButtonExample ({Log.d("MyLog", "ExtendedButtonExample called")}, false)
+        ExtendedButtonExample (false)
     }
 }
 
@@ -24,7 +24,7 @@ fun SecondScreen() {  // Main and Primary screen
         Header(categoryName = "Expenses", isMenuButton =  true, isSearchButton = true)
         ExpensesCardTypeSimple()
         ExpensesCardTypeSimple()
-        ExtendedButtonExample ({Log.d("MyLog", "ExtendedButtonExample called")}, true)
+        ExtendedButtonExample (true)
     }
 }
 
@@ -33,6 +33,6 @@ fun ThirdScreen() {  // Statistics Screen
     Column(modifier = Modifier.fillMaxSize()) {
         Header("Statistics", true, false)
         ExpensesCardTypeSimple()
-        ExtendedButtonExample ({Log.d("MyLog", "ExtendedButtonExample called")}, false)
+        ExtendedButtonExample ( false)
     }
 }
