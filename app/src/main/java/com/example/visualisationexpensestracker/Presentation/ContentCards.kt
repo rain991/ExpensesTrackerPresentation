@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode.Companion.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -69,76 +71,84 @@ fun ExtendedButtonExample(isExpanded: Boolean) {
     val sheetState = rememberModalBottomSheetState()
     var currentExpenseAdded by remember{ mutableStateOf(0) } // Expense adding value
     if (isSheetOpen) {
-        ModalBottomSheet(onDismissRequest = { isSheetOpen = false }, sheetState = sheetState) {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)) {
-                Row(){
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+        Box(modifier = Modifier.fillMaxWidth().max
+        ) {
+            ModalBottomSheet(onDismissRequest = { isSheetOpen = false }, sheetState = sheetState) {
+                Column(modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)) {
+                    Row(){
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        Text(text = currentExpenseAdded.toString(), textAlign = TextAlign.Center, fontSize = 26.sp)
                     }
-                    Text(text = currentExpenseAdded.toString(), textAlign = TextAlign.Center, fontSize = 26.sp)
-                }
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
                     }
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        VerticalAlignmentLine()
                     }
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
                     }
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                    }
-                }
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                    }
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                    }
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                    }
-                    VerticalAlignmentLine()
-                }
-                Row() {
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                    }
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                    }
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                    }
-                }
-                Row() {
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                    }
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                    }
-                    IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        }
                     }
                 }
             }
         }
+
     }
 }
 
 @Composable
 fun VerticalAlignmentLine() {
-    Box(
+    Box(modifier = Modifier.fillMaxHeight(),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -169,4 +179,5 @@ fun ExpensesCardTypeSimple() {
     ) {
         Text(text = stringResource(R.string.LoremIpsum))
     }
+
 }
