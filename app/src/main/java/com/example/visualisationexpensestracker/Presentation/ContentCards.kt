@@ -23,6 +23,7 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -35,6 +36,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode.Companion.Color
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.stringResource
@@ -44,6 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.visualisationexpensestracker.R
+import java.lang.Math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,12 +73,18 @@ fun ExtendedButtonExample(isExpanded: Boolean) {
         }
     }
     val buttonValues = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-    val sheetState = rememberModalBottomSheetState()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false, confirmValueChange = {when (it) {
+        SheetValue.Expanded -> {false}
+        else -> {true}
+    }} )
     var currentExpenseAdded by remember{ mutableStateOf(0) } // Expense adding value
+
+
+
     if (isSheetOpen) {
-        Box(modifier = Modifier.fillMaxWidth().max
+        Box(modifier = Modifier.fillMaxWidth()
         ) {
-            ModalBottomSheet(onDismissRequest = { isSheetOpen = false }, sheetState = sheetState) {
+            ModalBottomSheet(onDismissRequest = { isSheetOpen = false }, sheetState = sheetState ) {
                 Column(modifier = Modifier
                     .fillMaxSize()
                     .padding(8.dp)) {
@@ -179,5 +190,4 @@ fun ExpensesCardTypeSimple() {
     ) {
         Text(text = stringResource(R.string.LoremIpsum))
     }
-
 }
