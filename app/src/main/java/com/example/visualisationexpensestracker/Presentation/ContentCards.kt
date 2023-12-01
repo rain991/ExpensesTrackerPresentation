@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode.Companion.Color
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
@@ -79,8 +81,7 @@ fun ExtendedButtonExample(isExpanded:Boolean,onClick: () -> Unit) {  // ALL fill
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheet(isVisible: Boolean,
-                onDismiss: () -> Unit) {
+fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
     val buttonValues = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
     val sheetState =
         rememberModalBottomSheetState(skipPartiallyExpanded = false, confirmValueChange = {
@@ -103,7 +104,7 @@ fun BottomSheet(isVisible: Boolean,
                 sheetState = sheetState
             ) {
                 Row(modifier = Modifier.fillMaxSize()) {
-                    Box(modifier = Modifier.padding(end = 80.dp)) {
+                    Box(modifier = Modifier.background(androidx.compose.ui.graphics.Color.Yellow).weight(4F)) {
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -121,7 +122,7 @@ fun BottomSheet(isVisible: Boolean,
                             }
                             Row(
                                 modifier = Modifier
-                                    .fillMaxWidth()
+
                                     .padding(top = 16.dp, start = 6.dp),
                                 horizontalArrangement = Arrangement.SpaceAround
                             ) {
@@ -140,7 +141,7 @@ fun BottomSheet(isVisible: Boolean,
                             }
                             Row(
                                 modifier = Modifier
-                                    .fillMaxWidth()
+
                                     .padding(top = 16.dp, start = 6.dp),
                                 horizontalArrangement = Arrangement.SpaceAround
                             ) {
@@ -157,7 +158,7 @@ fun BottomSheet(isVisible: Boolean,
                             }
                             Row(
                                 modifier = Modifier
-                                    .fillMaxWidth()
+
                                     .padding(top = 16.dp, start = 6.dp),
                                 horizontalArrangement = Arrangement.SpaceAround
                             ) {
@@ -173,7 +174,6 @@ fun BottomSheet(isVisible: Boolean,
                             }
                             Row(
                                 modifier = Modifier
-                                    .fillMaxWidth()
                                     .padding(top = 16.dp, start = 6.dp),
                                 horizontalArrangement = Arrangement.SpaceAround
                             ) {
@@ -190,7 +190,16 @@ fun BottomSheet(isVisible: Boolean,
 
                         }
                     }
-                    VerticalAlignmentLine()
+                    Box(modifier = Modifier.fillMaxSize().height(64.dp).background(androidx.compose.ui.graphics.Color.DarkGray).weight(1F)
+                    ) {
+                        Column(modifier= Modifier.fillMaxWidth().align(Alignment.TopCenter)
+                        ) {
+                            Text(
+                                text = "Okay",
+                                fontSize = 22.sp
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -200,12 +209,11 @@ fun BottomSheet(isVisible: Boolean,
 
 
 
-@SuppressLint("UnrememberedMutableState")
 @Preview
 @Composable
 fun Preview() {
-//    val state = mutableStateOf(true)
-//   BottomSheet(isSheetOpen = state)
+    var isVisible by rememberSaveable { mutableStateOf(true) }
+    BottomSheet(isVisible = isVisible, onDismiss = { isVisible = false })
 }
 
 @Composable
@@ -219,21 +227,3 @@ fun ExpensesCardTypeSimple() {
     }
 }
 
-@Composable
-fun VerticalAlignmentLine() {
-    Box(
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            modifier = Modifier
-                .width(80.dp)
-                .align(Alignment.TopEnd)
-                .background(androidx.compose.ui.graphics.Color.Cyan)
-        ) {
-            Text(
-                text = "Okay",
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-        }
-    }
-}
