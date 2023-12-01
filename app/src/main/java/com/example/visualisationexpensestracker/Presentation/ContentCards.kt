@@ -49,13 +49,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.visualisationexpensestracker.R
 import java.lang.Math.abs
-val status : Boolean = false
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExtendedButtonExample(isExpanded: Boolean) {  // ALL fillmaxsize should be checked in final version
-    var isSheetOpen by rememberSaveable {
-        mutableStateOf(false)
-    }
+    var isSheetOpen by remember{mutableStateOf(false)}
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -67,24 +65,31 @@ fun ExtendedButtonExample(isExpanded: Boolean) {  // ALL fillmaxsize should be c
             horizontalAlignment = Alignment.End
         ) {
             ExtendedFloatingActionButton(expanded = isExpanded,
-                onClick = { isSheetOpen = true },
+                onClick = { BottomSheet(isSheetOpen) { newIsSheetOpen ->
+                    isSheetOpen = newIsSheetOpen
+                }
+                },
                 icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
                 text = { Text(text = "Extended FAB") })
         }
     }
+
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BottomSheet (isSheetOpen : Boolean, isSheetOpenChange: (Boolean)->Boolean){
     val buttonValues = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false, confirmValueChange = {when (it) {
         SheetValue.Expanded -> {false}
         else -> {true}
     }} )
     var currentExpenseAdded by remember{ mutableStateOf(0) } // Expense adding value
-
-
-
     if (isSheetOpen) {
         Box(modifier = Modifier.fillMaxSize()  // WARNING fillmaxwidth is optimal
         ) {
-            ModalBottomSheet(onDismissRequest = { isSheetOpen = false }, sheetState = sheetState ) {
+            ModalBottomSheet(onDismissRequest = { isSheetOpenChange(false)}, sheetState = sheetState ) {
                 Row(modifier = Modifier.fillMaxSize()) {
                     Box(modifier = Modifier.padding(end = 80.dp)){
                         Column(modifier = Modifier
@@ -163,23 +168,7 @@ fun ExtendedButtonExample(isExpanded: Boolean) {  // ALL fillmaxsize should be c
     }
 }
 
-@Composable
-fun VerticalAlignmentLine() {
-    Box(
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            modifier = Modifier
-                .width(80.dp)
-                .align(Alignment.TopEnd).background(androidx.compose.ui.graphics.Color.Cyan)
-        ) {
-            Text(
-                text = "Okay",
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-        }
-    }
-}
+
 @Preview
 @Composable
 fun Preview(){
@@ -201,5 +190,24 @@ fun ExpensesCardTypeSimple() {
             .padding(8.dp), shape = RoundedCornerShape(8.dp)
     ) {
         Text(text = stringResource(R.string.LoremIpsum))
+    }
+}
+
+@Composable
+fun VerticalAlignmentLine() {
+    Box(
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier
+                .width(80.dp)
+                .align(Alignment.TopEnd)
+                .background(androidx.compose.ui.graphics.Color.Cyan)
+        ) {
+            Text(
+                text = "Okay",
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+        }
     }
 }
