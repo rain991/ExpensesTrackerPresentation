@@ -49,10 +49,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.visualisationexpensestracker.R
 import java.lang.Math.abs
-
+val status : Boolean = false
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExtendedButtonExample(isExpanded: Boolean) {
+fun ExtendedButtonExample(isExpanded: Boolean) {  // ALL fillmaxsize should be checked in final version
     var isSheetOpen by rememberSaveable {
         mutableStateOf(false)
     }
@@ -82,74 +82,80 @@ fun ExtendedButtonExample(isExpanded: Boolean) {
 
 
     if (isSheetOpen) {
-        Box(modifier = Modifier.fillMaxWidth()
+        Box(modifier = Modifier.fillMaxSize()  // WARNING fillmaxwidth is optimal
         ) {
             ModalBottomSheet(onDismissRequest = { isSheetOpen = false }, sheetState = sheetState ) {
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp)) {
-                    Row(){
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                Row(modifier = Modifier.fillMaxSize()) {
+                    Box(modifier = Modifier.padding(end = 80.dp)){
+                        Column(modifier = Modifier
+                            .fillMaxSize()
+                            .padding(8.dp)) {
+                            Row(){
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                                Text(text = currentExpenseAdded.toString(), textAlign = TextAlign.Center, fontSize = 26.sp)
+                            }
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                            }
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+
+                            }
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                            }
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                }
+                            }
+
                         }
-                        Text(text = currentExpenseAdded.toString(), textAlign = TextAlign.Center, fontSize = 26.sp)
                     }
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                    }
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                        VerticalAlignmentLine()
-                    }
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                    }
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                        }
-                    }
+                    VerticalAlignmentLine()
                 }
             }
         }
@@ -159,12 +165,13 @@ fun ExtendedButtonExample(isExpanded: Boolean) {
 
 @Composable
 fun VerticalAlignmentLine() {
-    Box(modifier = Modifier.fillMaxHeight(),
+    Box(
         contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier.width(80.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier
+                .width(80.dp)
+                .align(Alignment.TopEnd).background(androidx.compose.ui.graphics.Color.Cyan)
         ) {
             Text(
                 text = "Okay",
@@ -172,6 +179,11 @@ fun VerticalAlignmentLine() {
             )
         }
     }
+}
+@Preview
+@Composable
+fun Preview(){
+    ExtendedButtonExample(isExpanded = true)
 }
 
 
