@@ -1,5 +1,6 @@
 package com.example.visualisationexpensestracker.Presentation
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +28,7 @@ import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -50,10 +52,11 @@ import androidx.compose.ui.unit.sp
 import com.example.visualisationexpensestracker.R
 import java.lang.Math.abs
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExtendedButtonExample(isExpanded: Boolean) {  // ALL fillmaxsize should be checked in final version
-    var isSheetOpen by remember{mutableStateOf(false)}
+fun ExtendedButtonExample(isExpanded:Boolean,onClick: () -> Unit) {  // ALL fillmaxsize should be checked in final version
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -64,46 +67,64 @@ fun ExtendedButtonExample(isExpanded: Boolean) {  // ALL fillmaxsize should be c
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.End
         ) {
-            ExtendedFloatingActionButton(expanded = isExpanded,
-                onClick = { BottomSheet(isSheetOpen) { newIsSheetOpen ->
-                    isSheetOpen = newIsSheetOpen
-                }
-                },
-                icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
-                text = { Text(text = "Extended FAB") })
-        }
+            ExtendedFloatingActionButton(
+                expanded = isExpanded,
+                onClick = onClick, //TBC
+        icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
+        text = { Text(text = "Extended FAB") })
     }
-
+}
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheet (isSheetOpen : Boolean, isSheetOpenChange: (Boolean)->Boolean){
+fun BottomSheet(isVisible: Boolean,
+                onDismiss: () -> Unit) {
     val buttonValues = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false, confirmValueChange = {when (it) {
-        SheetValue.Expanded -> {false}
-        else -> {true}
-    }} )
-    var currentExpenseAdded by remember{ mutableStateOf(0) } // Expense adding value
-    if (isSheetOpen) {
-        Box(modifier = Modifier.fillMaxSize()  // WARNING fillmaxwidth is optimal
+    val sheetState =
+        rememberModalBottomSheetState(skipPartiallyExpanded = false, confirmValueChange = {
+            when (it) {
+                SheetValue.Expanded -> {
+                    false
+                }
+                else -> {
+                    true
+                }
+            }
+        })
+    var currentExpenseAdded by remember { mutableStateOf(0) } // Expense adding value
+    if (isVisible) {
+        Box(
+            modifier = Modifier.fillMaxSize()  // WARNING fillmaxwidth is optimal
         ) {
-            ModalBottomSheet(onDismissRequest = { isSheetOpenChange(false)}, sheetState = sheetState ) {
+            ModalBottomSheet(
+                onDismissRequest =onDismiss,
+                sheetState = sheetState
+            ) {
                 Row(modifier = Modifier.fillMaxSize()) {
-                    Box(modifier = Modifier.padding(end = 80.dp)){
-                        Column(modifier = Modifier
-                            .fillMaxSize()
-                            .padding(8.dp)) {
-                            Row(){
+                    Box(modifier = Modifier.padding(end = 80.dp)) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(8.dp)
+                        ) {
+                            Row() {
                                 IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
                                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                                 }
-                                Text(text = currentExpenseAdded.toString(), textAlign = TextAlign.Center, fontSize = 26.sp)
+                                Text(
+                                    text = currentExpenseAdded.toString(),
+                                    textAlign = TextAlign.Center,
+                                    fontSize = 26.sp
+                                )
                             }
-                            Row(modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 16.dp, start = 6.dp),
+                                horizontalArrangement = Arrangement.SpaceAround
+                            ) {
                                 IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
                                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                                 }
@@ -117,9 +138,12 @@ fun BottomSheet (isSheetOpen : Boolean, isSheetOpenChange: (Boolean)->Boolean){
                                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                                 }
                             }
-                            Row(modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 16.dp, start = 6.dp),
+                                horizontalArrangement = Arrangement.SpaceAround
+                            ) {
                                 IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
                                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                                 }
@@ -131,9 +155,12 @@ fun BottomSheet (isSheetOpen : Boolean, isSheetOpenChange: (Boolean)->Boolean){
                                 }
 
                             }
-                            Row(modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 16.dp, start = 6.dp),
+                                horizontalArrangement = Arrangement.SpaceAround
+                            ) {
                                 IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
                                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                                 }
@@ -144,9 +171,12 @@ fun BottomSheet (isSheetOpen : Boolean, isSheetOpenChange: (Boolean)->Boolean){
                                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                                 }
                             }
-                            Row(modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 16.dp, start = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 16.dp, start = 6.dp),
+                                horizontalArrangement = Arrangement.SpaceAround
+                            ) {
                                 IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
                                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                                 }
@@ -169,18 +199,14 @@ fun BottomSheet (isSheetOpen : Boolean, isSheetOpenChange: (Boolean)->Boolean){
 }
 
 
+
+@SuppressLint("UnrememberedMutableState")
 @Preview
 @Composable
-fun Preview(){
-    ExtendedButtonExample(isExpanded = true)
+fun Preview() {
+//    val state = mutableStateOf(true)
+//   BottomSheet(isSheetOpen = state)
 }
-
-
-//Text(
-//text = "sdadasdasdasd",
-//color = androidx.compose.ui.graphics.Color.Yellow,
-//fontWeight = FontWeight.Bold
-//)
 
 @Composable
 fun ExpensesCardTypeSimple() {
