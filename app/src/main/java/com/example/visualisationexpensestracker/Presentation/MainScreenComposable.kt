@@ -37,7 +37,7 @@ fun PagerTest() {
     val pagerState = rememberPagerState(initialPage = 1)
     Column(
         modifier = Modifier
-            .fillMaxSize().padding(4.dp)
+            .fillMaxSize()
     ) {
         HorizontalPager(
             pageCount = 3,

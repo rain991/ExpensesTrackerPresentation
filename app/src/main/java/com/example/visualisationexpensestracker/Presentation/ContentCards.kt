@@ -1,7 +1,9 @@
 package com.example.visualisationexpensestracker.Presentation
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.VectorDrawable
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +26,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
@@ -38,14 +41,19 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,6 +61,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.visualisationexpensestracker.R
 import java.lang.Math.abs
+import kotlin.math.round
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -82,7 +91,13 @@ fun ExtendedButtonExample(isExpanded:Boolean,onClick: () -> Unit) {  // ALL fill
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
-    val buttonValues = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
+    val customShape = RoundedCornerShape(
+        topStart = 16.dp,
+        topEnd = 16.dp,
+        bottomStart = 0.dp,
+        bottomEnd = 0.dp
+    )
+    val buttonValues = listOf("0","1", "2", "3", "4", "5", "6", "7", "8", "9")
     val sheetState =
         rememberModalBottomSheetState(skipPartiallyExpanded = false, confirmValueChange = {
             when (it) {
@@ -94,21 +109,19 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
                 }
             }
         })
-    var currentExpenseAdded by remember { mutableStateOf(0) } // Expense adding value
+    var currentExpenseAdded by remember { mutableStateOf(0.0F) } // Expense adding value
     if (isVisible) {
-        Box(
-            modifier = Modifier.fillMaxSize()  // WARNING fillmaxwidth is optimal
-        ) {
             ModalBottomSheet(
                 onDismissRequest =onDismiss,
                 sheetState = sheetState
             ) {
                 Row(modifier = Modifier.fillMaxSize()) {
-                    Box(modifier = Modifier.background(androidx.compose.ui.graphics.Color.Yellow).weight(4F)) {
+                    Box(modifier = Modifier
+                        .weight(4F)) {
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(8.dp)
+                                .padding(start = 8.dp, end = 8.dp)
                         ) {
                             Row() {
                                 IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
@@ -122,11 +135,12 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
                             }
                             Row(
                                 modifier = Modifier
+                                    .fillMaxWidth()
 
-                                    .padding(top = 16.dp, start = 6.dp),
+                                    .padding(start = 6.dp),
                                 horizontalArrangement = Arrangement.SpaceAround
                             ) {
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                IconButton(onClick = { /*TODO*/ },modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.Magenta)) {  // Change Buttons Order Button
                                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                                 }
                                 IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
@@ -136,7 +150,7 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
                                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                                 }
                                 IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null, modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.Blue))
                                 }
                             }
                             Row(
@@ -168,31 +182,36 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
                                 IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
                                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                                 }
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                IconButton(onClick = { /*TODO*/ }, modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.Red).clip(
+                                    RoundedCornerShape(8.dp)
+                                )) {  // Change Buttons Order Button
+                                //    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                    Text(text = "2", modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.DarkGray))
                                 }
                             }
                             Row(
                                 modifier = Modifier
+                                    .fillMaxWidth()
                                     .padding(top = 16.dp, start = 6.dp),
                                 horizontalArrangement = Arrangement.SpaceAround
                             ) {
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                                    IconButton(onClick = { /*TODO*/ },modifier = Modifier.padding(start = 8.dp, end = 8.dp).background(color = androidx.compose.ui.graphics.Color.Green).weight(2f)) {  // Change Buttons Order Button
+                                        Text(text = "0", fontSize = 24.sp)
+                                    }
+                                IconButton(onClick = { /*TODO*/ },modifier = Modifier.padding(start = 8.dp, end = 8.dp).background(color = androidx.compose.ui.graphics.Color.Blue).weight(1f)) {  // Change Buttons Order Button
+                                    Text(text = ".", fontSize = 32.sp)
                                 }
                             }
-
                         }
                     }
-                    Box(modifier = Modifier.fillMaxSize().height(64.dp).background(androidx.compose.ui.graphics.Color.DarkGray).weight(1F)
+                    Box(modifier = Modifier
+                        .fillMaxSize()
+                        .height(64.dp)
+                        .weight(1F)
                     ) {
-                        Column(modifier= Modifier.fillMaxWidth().align(Alignment.TopCenter)
+                        Column(modifier= Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.TopCenter)
                         ) {
                             Text(
                                 text = "Okay",
@@ -202,7 +221,7 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
                     }
                 }
             }
-        }
+
 
     }
 }
