@@ -31,7 +31,6 @@ import com.example.visualisationexpensestracker.Presentation.SecondScreen
 import com.example.visualisationexpensestracker.Presentation.ThirdScreen
 
 @OptIn(ExperimentalFoundationApi::class)
-@Preview
 @Composable
 fun PagerTest() {
     val pagerState = rememberPagerState(initialPage = 1)

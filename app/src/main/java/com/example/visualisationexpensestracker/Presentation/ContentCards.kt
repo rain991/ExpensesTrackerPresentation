@@ -2,7 +2,10 @@ package com.example.visualisationexpensestracker.Presentation
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.VectorDrawable
+import android.os.Build
 import android.util.Log
+import android.view.RoundedCorner
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -10,17 +13,20 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -44,6 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.input.pointer.PointerEventPass
@@ -51,6 +58,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -66,7 +75,10 @@ import kotlin.math.round
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExtendedButtonExample(isExpanded:Boolean,onClick: () -> Unit) {  // ALL fillmaxsize should be checked in final version
+fun ExtendedButtonExample(
+    isExpanded: Boolean,
+    onClick: () -> Unit
+) {  // ALL fillmaxsize should be checked in final version
 
     Box(
         modifier = Modifier
@@ -81,10 +93,10 @@ fun ExtendedButtonExample(isExpanded:Boolean,onClick: () -> Unit) {  // ALL fill
             ExtendedFloatingActionButton(
                 expanded = isExpanded,
                 onClick = onClick, //TBC
-        icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
-        text = { Text(text = "Extended FAB") })
+                icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
+                text = { Text(text = "Extended FAB") })
+        }
     }
-}
 }
 
 
@@ -97,13 +109,14 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
         bottomStart = 0.dp,
         bottomEnd = 0.dp
     )
-    val buttonValues = listOf("0","1", "2", "3", "4", "5", "6", "7", "8", "9")
+    val buttonValues = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
     val sheetState =
         rememberModalBottomSheetState(skipPartiallyExpanded = false, confirmValueChange = {
             when (it) {
                 SheetValue.Expanded -> {
                     false
                 }
+
                 else -> {
                     true
                 }
@@ -111,129 +124,187 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
         })
     var currentExpenseAdded by remember { mutableStateOf(0.0F) } // Expense adding value
     if (isVisible) {
-            ModalBottomSheet(
-                onDismissRequest =onDismiss,
-                sheetState = sheetState
-            ) {
-                Row(modifier = Modifier.fillMaxSize()) {
-                    Box(modifier = Modifier
-                        .weight(4F)) {
-                        Column(
+        ModalBottomSheet(
+            onDismissRequest = onDismiss,
+            sheetState = sheetState
+        ) {
+            Row(modifier = Modifier.fillMaxSize()) {
+                Box(
+                    modifier = Modifier
+                        .weight(4F)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(start = 8.dp, end = 8.dp)
+                    ) {
+                        Row() {
+                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            }
+                            Text(
+                                text = currentExpenseAdded.toString(),
+                                textAlign = TextAlign.Center,
+                                fontSize = 26.sp
+                            )
+                        }
+                        Row(
                             modifier = Modifier
-                                .fillMaxSize()
-                                .padding(start = 8.dp, end = 8.dp)
+                                .fillMaxWidth()
+                                .padding(start = 6.dp),
+                            horizontalArrangement = Arrangement.SpaceAround
                         ) {
-                            Row() {
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-                                Text(
-                                    text = currentExpenseAdded.toString(),
-                                    textAlign = TextAlign.Center,
-                                    fontSize = 26.sp
+                            IconButton(
+                                onClick = { /*TODO*/ },
+                                modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.Magenta)
+                            ) {  // Change Buttons Order Button
+                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            }
+                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            }
+                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            }
+                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                Icon(
+                                    imageVector = Icons.Filled.Add,
+                                    contentDescription = null,
+                                    modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.Blue)
                                 )
                             }
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-
-                                    .padding(start = 6.dp),
-                                horizontalArrangement = Arrangement.SpaceAround
-                            ) {
-                                IconButton(onClick = { /*TODO*/ },modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.Magenta)) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null, modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.Blue))
-                                }
-                            }
-                            Row(
-                                modifier = Modifier
-
-                                    .padding(top = 16.dp, start = 6.dp),
-                                horizontalArrangement = Arrangement.SpaceAround
-                            ) {
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-
-                            }
-                            Row(
-                                modifier = Modifier
-
-                                    .padding(top = 16.dp, start = 6.dp),
-                                horizontalArrangement = Arrangement.SpaceAround
-                            ) {
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-                                IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                }
-                                IconButton(onClick = { /*TODO*/ }, modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.Red).clip(
-                                    RoundedCornerShape(8.dp)
-                                )) {  // Change Buttons Order Button
-                                //    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                                    Text(text = "2", modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.DarkGray))
-                                }
-                            }
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = 16.dp, start = 6.dp),
-                                horizontalArrangement = Arrangement.SpaceAround
-                            ) {
-                                    IconButton(onClick = { /*TODO*/ },modifier = Modifier.padding(start = 8.dp, end = 8.dp).background(color = androidx.compose.ui.graphics.Color.Green).weight(2f)) {  // Change Buttons Order Button
-                                        Text(text = "0", fontSize = 24.sp)
-                                    }
-                                IconButton(onClick = { /*TODO*/ },modifier = Modifier.padding(start = 8.dp, end = 8.dp).background(color = androidx.compose.ui.graphics.Color.Blue).weight(1f)) {  // Change Buttons Order Button
-                                    Text(text = ".", fontSize = 32.sp)
-                                }
-                            }
                         }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp, start = 6.dp),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ) {
+                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            }
+                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            }
+                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
+                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            }
+
+                        }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp, start = 6.dp),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ) {
+                            Box(
+                                modifier = Modifier.clip(
+                                    RoundedCornerShape(8.dp)
+                                )
+                            ){
+                                IconButton(onClick = { /*TODO*/ },
+                                    modifier = Modifier
+                                        .background(color = colorResource(id = R.color.vanilla))) {  // Change Buttons Order Button
+                                    Text(text = "3")
+                                }
+                            }
+
+                            Box(
+                                modifier = Modifier.clip(
+                                    RoundedCornerShape(8.dp)
+                                )
+                            ) {
+                                IconButton(onClick = { /*TODO*/ },
+                                modifier = Modifier
+                                    .background(color = colorResource(id = R.color.vanilla))) {  // Change Buttons Order Button
+                                    Text(
+                                        text = "2"
+                                    )
+                                }
+                            }
+
+                            Box(
+                                modifier = Modifier.clip(
+                                    RoundedCornerShape(8.dp)
+                                )
+                            ) {
+                                IconButton(
+                                    onClick = { /*TODO*/ },
+                                    modifier = Modifier
+                                        .background(color = colorResource(id = R.color.vanilla))
+                                ) {
+                                    Text(text = "1")
+                                }
+                            }
+
+                        }
+
+                        CustomRow()
+//                        Row(
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .padding(top = 16.dp, start = 6.dp).clip(RoundedCornerShape(10.dp))
+//                        ) {
+//                            Box(
+//                                modifier = Modifier
+//                                    .weight(2f).background(color = colorResource(id = R.color.vanilla))
+//                            ){
+//                                IconButton(
+//                                    onClick = { /*TODO*/ },
+//                                    modifier = Modifier
+//                                        .padding(start = 8.dp, end = 8.dp).fillMaxWidth()
+//
+//                                ) {
+//                                    Text(text = "0", fontSize = 24.sp)
+//                                }
+//                            }
+//                            Box(
+//                                modifier = Modifier
+//                                    .weight(1f).background(color = colorResource(id = R.color.vanilla))
+//                                ){
+//                                    IconButton(
+//                                        onClick = { /*TODO*/ },
+//                                       modifier = Modifier
+//                                            .padding(start = 8.dp, end = 8.dp).fillMaxWidth()
+//                                            )
+//                                     {
+//                                        Text(text = ".", fontSize = 32.sp)
+//                                    }
+//                                }
+//
+//                        }
                     }
-                    Box(modifier = Modifier
+                }
+                Box(
+                    modifier = Modifier
                         .fillMaxSize()
                         .height(64.dp)
                         .weight(1F)
-                    ) {
-                        Column(modifier= Modifier
+                ) {
+                    Column(
+                        modifier = Modifier
                             .fillMaxWidth()
                             .align(Alignment.TopCenter)
-                        ) {
-                            Text(
-                                text = "Okay",
-                                fontSize = 22.sp
-                            )
-                        }
+                    ) {
+                        Text(
+                            text = "Okay",
+                            fontSize = 22.sp
+                        )
                     }
                 }
             }
+        }
 
 
     }
 }
 
 
-
-@Preview
-@Composable
-fun Preview() {
-    var isVisible by rememberSaveable { mutableStateOf(true) }
-    BottomSheet(isVisible = isVisible, onDismiss = { isVisible = false })
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun Preview() {
+//    BottomSheet(isVisible = true, onDismiss = { })
+//}
 
 @Composable
 fun ExpensesCardTypeSimple() {
@@ -244,5 +315,46 @@ fun ExpensesCardTypeSimple() {
     ) {
         Text(text = stringResource(R.string.LoremIpsum))
     }
+}
+
+
+@Composable
+fun CustomRow() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        // Bigger button
+        Button(
+            modifier = Modifier
+                .weight(2f)
+                .padding(8.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(MaterialTheme.colorScheme.primary)
+                .height(56.dp),
+            onClick = { /* Handle button click */ }
+        ) {
+            Text(text = "0")
+        }
+
+        // Smaller button
+        Button(
+            modifier = Modifier
+                .weight(1f)
+                .padding(8.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(MaterialTheme.colorScheme.primary)
+                .height(56.dp),
+            onClick = { /* Handle button click */ }
+        ) {
+            Text(text = ".")
+        }
+    }
+}
+@Preview
+@Composable
+fun CustomRowWithTheme() {
+        CustomRow()
 }
 
