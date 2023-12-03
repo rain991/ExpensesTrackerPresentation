@@ -31,13 +31,12 @@ import com.example.visualisationexpensestracker.Presentation.SecondScreen
 import com.example.visualisationexpensestracker.Presentation.ThirdScreen
 
 @OptIn(ExperimentalFoundationApi::class)
-@Preview
 @Composable
 fun PagerTest() {
     val pagerState = rememberPagerState(initialPage = 1)
     Column(
         modifier = Modifier
-            .fillMaxSize().padding(4.dp)
+            .fillMaxSize()
     ) {
         HorizontalPager(
             pageCount = 3,
@@ -54,21 +53,6 @@ fun PagerTest() {
     }
 }
 
-@Composable
-fun Header1(categoryName:String, isMenuButton: Boolean, isSearchButton:Boolean) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 8.dp)){
-       if(isMenuButton){
-           IconButton(onClick = { /* Handle navigation icon click */ }) {
-               Icon(imageVector = Icons.Default.Menu, contentDescription = null)
-           }
-       }
-        Box(modifier = Modifier.fillMaxWidth().padding(8.dp)){
-            Text(text = categoryName, textAlign = TextAlign.Center, fontSize = 28.sp, fontWeight = FontWeight.Bold)
-        }
-    }
-}
 @Composable
 fun Header(categoryName: String, isMenuButton: Boolean = true, isSearchButton: Boolean = true) {
     Row(
