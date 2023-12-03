@@ -147,69 +147,89 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
                                 fontSize = 26.sp
                             )
                         }
-                        Row(
+                        Row(  // 7, 8, 9 Row
                             modifier = Modifier
-                                .fillMaxWidth(),
+                                .fillMaxWidth().padding(8.dp),
                             horizontalArrangement = Arrangement.SpaceAround
                         ) {
-                            IconButton(
-                                onClick = { /*TODO*/ },
-                                modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.Magenta)
-                            ) {  // Change Buttons Order Button
-                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            Button(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(8.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(MaterialTheme.colorScheme.primary)
+                                    .height(56.dp),
+                                onClick = { /* Handle button click */ }
+                            ) {
+                                Text(text = "9", fontSize = 32.sp)
                             }
-                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            Button(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(8.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(MaterialTheme.colorScheme.primary)
+                                    .height(56.dp),
+                                onClick = { /* Handle button click */ }
+                            ) {
+                                Text(text = "8", fontSize = 32.sp)
                             }
-                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                            }
-                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                Icon(
-                                    imageVector = Icons.Filled.Add,
-                                    contentDescription = null,
-                                    modifier = Modifier.background(color = androidx.compose.ui.graphics.Color.Blue)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceAround
-                        ) {
-                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                            }
-                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                            }
-                            IconButton(onClick = { /*TODO*/ }) {  // Change Buttons Order Button
-                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            Button(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(8.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(MaterialTheme.colorScheme.primary)
+                                    .height(56.dp),
+                                onClick = { /* Handle button click */ }
+                            ) {
+                                Text(text = "7", fontSize = 32.sp)
                             }
 
                         }
-                        Row(
+                        Row(  // 4, 5, 6 Row
                             modifier = Modifier
-                                .fillMaxWidth(),
+                                .fillMaxWidth().padding(8.dp),
                             horizontalArrangement = Arrangement.SpaceAround
                         ) {
-                            Box(
-                                modifier = Modifier.clip(
-                                    RoundedCornerShape(8.dp)
-                                )
+                            Button(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(8.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(MaterialTheme.colorScheme.primary)
+                                    .height(56.dp),
+                                onClick = { /* Handle button click */ }
                             ) {
-                                IconButton(
-                                    onClick = { /*TODO*/ },
-                                    modifier = Modifier
-                                        .background(color = colorResource(id = R.color.vanilla))
-                                ) {  // Change Buttons Order Button
-                                    Text(text = "3")
-                                }
-                            }}
-                            Row(
+                                Text(text = "6", fontSize = 32.sp)
+                            }
+                            Button(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(8.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(MaterialTheme.colorScheme.primary)
+                                    .height(56.dp),
+                                onClick = { /* Handle button click */ }
+                            ) {
+                                Text(text = "5", fontSize = 32.sp)
+                            }
+                            Button(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(8.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(MaterialTheme.colorScheme.primary)
+                                    .height(56.dp),
+                                onClick = { /* Handle button click */ }
+                            ) {
+                                Text(text = "4", fontSize = 32.sp)
+                            }
+                        }
+                            Row(   // 1, 2, 3 Row
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp)
+                                    .padding(8.dp)
                             ) {
                                 Button(
                                     modifier = Modifier
@@ -220,7 +240,7 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
                                         .height(56.dp),
                                     onClick = { /* Handle button click */ }
                                 ) {
-                                    Text(text = ".")
+                                    Text(text = "3", fontSize = 32.sp)
                                 }
                                 Button(
                                     modifier = Modifier
@@ -231,7 +251,7 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
                                         .height(56.dp),
                                     onClick = { /* Handle button click */ }
                                 ) {
-                                    Text(text = ".")
+                                    Text(text = "2", fontSize = 32.sp)
                                 }
                                 // Smaller button
                                 Button(
@@ -243,10 +263,10 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
                                         .height(56.dp),
                                     onClick = { /* Handle button click */ }
                                 ) {
-                                    Text(text = ".")
+                                    Text(text = "1", fontSize = 32.sp)
                                 }
                             }
-                            Row(
+                            Row(  // 0 and . row
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(8.dp)
@@ -275,7 +295,7 @@ fun BottomSheet(isVisible: Boolean, onDismiss: () -> Unit) {
                                         .height(56.dp),
                                     onClick = { /* Handle button click */ }
                                 ) {
-                                    Text(text = ".", fontSize = 40.sp)
+                                    Text(text = ".", modifier = Modifier.fillMaxSize(), fontSize = 40.sp, textAlign = TextAlign.Center)
                                 }
                             }
 
