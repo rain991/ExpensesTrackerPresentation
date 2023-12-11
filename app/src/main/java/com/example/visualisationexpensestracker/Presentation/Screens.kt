@@ -1,5 +1,6 @@
 package com.example.visualisationexpensestracker.Presentation
 
+import android.graphics.Point
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,6 +34,7 @@ fun ThirdScreen() {  // Statistics Screen
     Column(modifier = Modifier.fillMaxSize()) {
         Header("Statistics", true, false)
 
+        ChartsTest()
 
         ExtendedButtonExample ({Log.d("MyLog", "ExtendedButtonExample called")}, false)
     }
