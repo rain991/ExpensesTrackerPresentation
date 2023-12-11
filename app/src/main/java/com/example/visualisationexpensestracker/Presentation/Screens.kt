@@ -32,7 +32,8 @@ fun SecondScreen() {  // Main and Primary screen
 fun ThirdScreen() {  // Statistics Screen
     Column(modifier = Modifier.fillMaxSize()) {
         Header("Statistics", true, false)
-        ExpensesCardTypeSimple()
+
+
         ExtendedButtonExample ({Log.d("MyLog", "ExtendedButtonExample called")}, false)
     }
 }
